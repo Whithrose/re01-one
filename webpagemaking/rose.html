@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>别回来</title>
+    <link rel="stylesheet" href="./scc/style.css">
+</head>
+<body>
+    <div id="photo">
+        <div class="musicimg"></div>
+        <div class="songtitle">或许能够改变的事</div>
+        <div class="singer">姬野の死</div>
+        <!-- 歌词区域 -->
+        <div class="lrc">
+            <div class="content"></div>
+        </div>
+        <audio src="./muics/Sacred Play Secret Place.mp3" id="music"></audio>
+    </div>
+    <textarea id="text" style="display: none;">//最后隐藏掉文本域
+    
+        [00:00.00] 作词 : SEN
+    [00:01.00] 作曲 : SEN
+    [00:02.00] 制作人 : SEN
+    [00:30.00]Gracefully sneaking up on me
+    [00:35.99]They just want to tear my feathers
+    [00:44.33]The golden light of the setting sun
+    [00:50.64]Let me be a hypocrite again
+    [00:57.43]I will be gone before long
+[01:01.60]I know I'm wrong
+[01:05.16]No matter how far I go, they find me out
+[01:13.98]I wish the gusts took away my gloom
+[01:20.20]I can't help this vague feeling
+[01:26.90]I feel so good, but I'm worn out
+[01:34.00]We'll be all right, don't look so sad
+[01:41.49]Confess my sin, conceal them all
+[01:49.10]Night will come soon and swallow everything
+[01:58.52]
+[02:13.56]Quietly hiding in the grass
+[02:19.31]Hearing the leaves rustling
+[02:27.99]They're singing with a burning piano
+[02:34.01]It gives me cheap relief
+[02:40.69]I will be gone before long
+[02:45.00]I know I'm wrong
+[02:48.66]No matter how far I go, they find me out
+[02:57.98]I wish the gusts took away my gloom
+[03:03.73]I can't help this vague feeling
+[03:10.16]I feel so good, but I'm worn out
+[03:17.34]We'll be all right, don't look so sad
+[03:24.91]Confess my sin, conceal them all
+[03:32.73]Night will come soon and swallow everything
+[03:41.57]
+[04:09.29]I feel so good, but I'm worn out
+[04:16.61]We'll be all right, don't look so sad
+[04:24.09]Confess my sin, conceal them all
+[04:31.44]Night will come soon and swallow everything
+[04:39.17]I feel so good
+[04:46.00]We'll be all right
+[04:53.58]Then, I give all up
+      </textarea>
+      <script type="text/javascript">
+        var oPlay = document.getElementsByClassName("musicimg")[0];
+        // var oPlay 定义变量oPlay，在document文档下通过classname获得元素，类名可以相同，所以找第一个
+        //得到第一个类名为musicimg的元素
+        // getElementsByClassName() 方法返回文档中所有指定类名的元素集合，作为 NodeList 对象。
+        // NodeList 对象代表一个有顺序的节点列表。NodeList 对象 我们可通过节点列表中的节点索引
+        // 号来访问列表中的节点(索引号由0开始)。
+        var music = document.getElementById("music");
+        //通过id来获取textarea标签内的词
+        var text = document.getElementById("text");
+        //通过id来获取textarea标签内的词
+        var con = document.getElementsByClassName("content")[0];
+        //定义content歌词标签内的内容
+        var onoff = true;//初始化
+        oPlay.onclick = function(){
+            // 单击oPlay元素触发事件，播放音乐
+            //即单击类musicimg中的光盘图标
+            if(onoff){
+                music.play();//play()是html5的新标签
+                this.className = "musicimg rotate";
+                //点击的时候oPlay元素的类名更改为musicimg和rotate
+                //rotate是让唱片旋转动画
+            }
+            else{
+                music.pause();//播放暂停
+                this.className = "musicimg"
+                //唱片停止旋转
+            }
+            onoff = !onoff;
+            //状态切换 即播放后将onoff的值改为假，或暂停后将值改为真
+        }
+ 
+ 
+ 
+        //歌词放入到歌词div内
+        //console.log(text.value)//可以现在控制台查看text的值
+        var html = '';//保存歌词
+        var lrc = text.value.split('[');
+        //从[处开始切割,把所有的歌词切割成lrc一维数组
+        console.log(lrc);
+        for(var i = 0; i < lrc.length; i++){
+            //循环歌词数组
+            var lrcarr = lrc[i].split(']');
+            //再将原来的数组中的元素切割成两部分，lrcarr[0]为时间，lrcarr[1]为歌词
+            var time = lrcarr[0].split(".");
+            //在秒与微秒间切割，time[0]就包含分钟和秒钟
+            var times = time[0].split(":");
+            //在分钟和秒钟之间再切割
+            var ms = times[0] * 60 + times[1] * 1;
+            //转换为秒数，times[1]必须乘以1，否则是字符串格式
+            if (lrcarr[1]) {
+                html += "<p id=" + ms + ">" + lrcarr[1] + "</p>"
+                //用p标签来拼接歌词,p标签里把ms拼接进去 <p id="ms">lrcarr[1]</p>
+                }
+            con.innerHTML = html;//将歌词赋值给con的标签内容
+        }
+ 
+ 
+ 
+        //歌词与音乐同步
+        var ap = document.getElementsByTagName("p");
+        //获取p标签元素
+        var num = 0;
+        //监听音乐播放进度，进度变化触发函数
+        music.addEventListener("timeupdate",function(){
+            
+            var currtime = parseInt(this.currentTime);
+            //对当前播放时间取整
+            //如果时间秒数存在更改p标签格式
+            if(document.getElementById(currtime)){
+                for(var i = 0; i < ap.length; i++){
+                    ap[i].style.cssText = "color:#fff;font-size:20px";
+                    //p标签原格式
+                }
+                document.getElementById(currtime).style.cssText = "color:#fffd80;font-size:25px";
+ 
+                if (ap[4 + num].id == currtime) {//p标签的第四条之后的id等于当前时间歌词div层就往上走20px
+                    con.style.top = -40 * num + "px";
+                    num++;
+                }
+            }
+        })
+ 
+      </script>
+      
+</body>
+</html>

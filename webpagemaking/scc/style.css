@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ 
+body{
+    height: 100vh;
+    overflow: hidden;
+    /* background-size: 1850px; */
+    background: linear-gradient(125deg,#000000,#3060c6,#5d6ede,#d2adff,#ff8080,#ef4646);
+    background-size: 500%;
+    animation: bgAnimation 15s linear infinite;
+    /* 动画名 时长 线性的 无限次循环 */
+    font-family: "KaiTi",楷体;
+}
+ 
+/* 渐变动画 */
+@keyframes bgAnimation{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}
+ 
+#photo{
+    width: 500px;
+    height: 900px;
+    background-image: url(../jpgandpng/death.png);
+    background-size: cover;
+    /* 保持原有尺寸 */
+    text-align: center;
+    /* 垂直居中 */
+    margin: 20px auto;
+    border-radius: 30px;
+    padding: 20px 0px;
+}
+ 
+.musicimg{
+    background: url(../3.jpeg) no-repeat center;
+    width: 210px;
+    height: 210px;
+    margin: auto;
+    background-size: 100%;
+    /* 背景图片尺寸*/
+    border-radius: 50%;
+    /* 为圆形 */
+}
+ 
+/* 设置唱片旋转 */
+.rotate{
+    animation: rot 10s linear infinite;
+    /* 自定义动画 名称 时间 匀速 无限重复 */
+}
+ 
+@keyframes rot{
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+      }
+    100% {
+      transform: rotate(360deg);
+    }
+}
+ 
+/* 歌曲标题 */
+.songtitle{
+    /* border: 1px solid #fff; */
+    width: 320px;
+    height: 40px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+    margin: auto;
+}
+ 
+/* 歌手名字格式 */
+.singer{
+    /* border: 1px solid #fff; */
+    width: 320px;
+    height: 35px;
+    text-align: center;
+    font-family: "宋体";
+    font-size: 20px;
+    color: #fff;
+    margin: auto;
+}
+ 
+ 
+ 
+.lrc {
+  width: 350px;
+  height: 560px;
+  /* border: 1px solid rgb(255, 255, 255); */
+  margin: auto;
+  color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  line-height: 40px;
+  overflow: hidden;
+}
+ 
+.content {
+  position: relative;
+  left: 0;
+  top: 0;
+}
